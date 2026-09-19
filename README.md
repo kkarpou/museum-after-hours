@@ -36,11 +36,38 @@ The game is designed for a controller but also supports keyboard input.
 
 Subtitles remain visible during all voiced sequences.
 
-## Web demo
+## Project structure
 
-The GitHub Pages build uses a self-contained `index.html` with optimized images and audio embedded directly in the page. This makes the demonstration portable and avoids external asset requests.
+```text
+index.html
+assets/
+  exhibits/
+    hatshepsut.jpg
+    amphora.jpg
+    astrolabe.jpg
+    reliquary.jpg
+    mangaaka.jpg
+    wave.jpg
+  audio/
+    hatshepsut_good.mp3
+    hatshepsut_weak.mp3
+    amphora_good.mp3
+    amphora_weak.mp3
+    astrolabe_good.mp3
+    astrolabe_weak.mp3
+    reliquary_good.mp3
+    reliquary_weak.mp3
+    mangaaka_good.mp3
+    mangaaka_weak.mp3
+    wave_good.mp3
+    wave_weak.mp3
+```
 
-For local development, the game can also be used in the separate `index.html + assets/` structure.
+No build process or server-side code is required. Open `index.html` directly for local use, or publish the repository through GitHub Pages.
+
+## GitHub Pages
+
+The project can be published directly from the `main` branch and repository root using **Settings → Pages → Deploy from a branch → main / root**.
 
 ## Credits and sources
 
