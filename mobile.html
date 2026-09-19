@@ -17,9 +17,8 @@ html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#080a09;fon
 .touch.primary{background:#443b24;color:#f2d98f}
 .touch .icon{font-size:1.4rem;line-height:1;font-weight:800}
 .touch .label{font-size:.68rem;line-height:1;white-space:nowrap}
-#rotateHint{display:none;position:fixed;inset:auto 12px 88px 12px;z-index:150;padding:8px 10px;border:1px solid #6a6041;background:rgba(22,25,23,.96);color:#d9d5ca;font-size:.78rem;line-height:1.25;text-align:center}
 @media(max-width:390px){.touch .label{font-size:.6rem}.touch .icon{font-size:1.25rem}}
-@media(orientation:landscape) and (max-height:600px){#shell{grid-template-rows:minmax(0,1fr) 58px}.touch{min-height:48px;flex-direction:row;gap:4px}.touch .icon{font-size:1.05rem}.touch .label{font-size:.63rem}#rotateHint{display:none!important}}
+@media(orientation:landscape) and (max-height:600px){#shell{grid-template-rows:minmax(0,1fr) 58px}.touch{min-height:48px;flex-direction:row;gap:4px}.touch .icon{font-size:1.05rem}.touch .label{font-size:.63rem}}
 </style>
 </head>
 <body>
@@ -34,17 +33,16 @@ html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#080a09;fon
     <button class="touch" data-key="x" aria-label="Επανάληψη φωνής"><span class="icon">↻</span><span class="label">Φωνή</span></button>
   </nav>
 </div>
-<div id="rotateHint">Μπορείς να παίξεις και οριζόντια. Σε μικρή οθόνη, η κατακόρυφη προβολή είναι συνήθως πιο άνετη.</div>
 <script>
 const frame=document.getElementById('game');
 const mobileCSS=String.raw`
-html,body{height:auto!important;min-height:100%!important;overflow:auto!important;overscroll-behavior-y:contain;-webkit-overflow-scrolling:touch}
-body{padding:0!important}
-#app{height:auto!important;min-height:100dvh!important;display:block!important;overflow:visible!important}
+html{height:100%!important;overflow:hidden!important}
+body{height:100%!important;min-height:100%!important;overflow-x:hidden!important;overflow-y:auto!important;-webkit-overflow-scrolling:touch!important;overscroll-behavior-y:contain!important;touch-action:pan-y!important;padding:0!important}
+#app{height:auto!important;min-height:100%!important;display:block!important;overflow:visible!important}
 .topbar{position:sticky!important;top:0!important;z-index:30!important;min-height:44px!important;padding:0 12px!important;background:rgba(10,13,12,.98)!important}
 .brand{font-size:.76rem!important;letter-spacing:.08em!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important}
 .status{display:none!important}
-main{display:block!important;min-height:calc(100dvh - 44px)!important;overflow:visible!important;padding:8px!important}
+main{display:block!important;height:auto!important;min-height:calc(100dvh - 44px)!important;overflow:visible!important;padding:8px!important}
 #stage{width:100%!important;height:auto!important;min-height:calc(100dvh - 60px)!important;overflow:visible!important}
 .card{height:auto!important;min-height:calc(100dvh - 60px)!important;overflow:visible!important}
 .controls{display:none!important}
@@ -52,15 +50,15 @@ main{display:block!important;min-height:calc(100dvh - 44px)!important;overflow:v
 .hero h1{font-size:clamp(2.85rem,14vw,4.8rem)!important;line-height:.95!important}
 .hero p{font-size:1.08rem!important;line-height:1.45!important}
 .startprompt{font-size:1rem!important;padding:12px 15px!important}
-.scene,.dialogue,.strategy,.interlude,.debrief{grid-template-columns:1fr!important;height:auto!important;overflow:visible!important}
+.scene,.dialogue,.strategy,.interlude,.debrief{grid-template-columns:1fr!important;height:auto!important;min-height:0!important;overflow:visible!important}
 .art{height:38dvh!important;min-height:250px!important;border-right:0!important;border-bottom:1px solid var(--line)!important}
 .art img{object-fit:contain!important}
-.content,.voicepane{overflow:visible!important;padding:18px 16px 26px!important}
+.content,.voicepane{height:auto!important;overflow:visible!important;padding:18px 16px 30px!important}
 h2{font-size:clamp(2rem,8vw,2.85rem)!important;line-height:1.05!important}
 .kicker,.eyebrow{font-size:.78rem!important}
 .meta{font-size:.92rem!important;line-height:1.3!important}
 .bodycopy{font-size:1.08rem!important;line-height:1.42!important}
-.options{overflow:visible!important;gap:9px!important;margin-top:12px!important}
+.options{height:auto!important;overflow:visible!important;gap:9px!important;margin-top:12px!important}
 .option{min-height:56px!important;padding:12px 10px!important;font-size:1.06rem!important;line-height:1.22!important;touch-action:manipulation!important}
 .option small{display:block!important;font-size:.84em!important;line-height:1.18!important;margin-top:3px!important}
 .option.focused{transform:none!important;outline-width:2px!important}
@@ -71,42 +69,46 @@ h2{font-size:clamp(2rem,8vw,2.85rem)!important;line-height:1.05!important}
 .subtitle{font-size:clamp(1.6rem,7vw,2.35rem)!important;line-height:1.22!important}
 .voicehint{font-size:1rem!important;line-height:1.4!important}
 .voicepane{justify-content:flex-start!important}
-.team-screen,.exhibit-review,.score{height:auto!important;display:block!important;overflow:visible!important;padding:18px 14px 26px!important}
+.team-screen,.exhibit-review,.score{height:auto!important;min-height:0!important;display:block!important;overflow:visible!important;padding:18px 14px 32px!important}
 .team-head{grid-template-columns:1fr!important;gap:12px!important}
-.teamgrid{grid-template-columns:1fr 1fr!important;grid-auto-rows:auto!important;gap:8px!important;margin-top:14px!important}
-.person{min-height:230px!important;grid-template-rows:150px auto!important}
-.person-art{height:150px!important}
-.person h3{font-size:1.25rem!important}
-.person p{font-size:.86rem!important}
-.strategy{padding:20px 16px 28px!important;gap:16px!important}
+.teamgrid{display:grid!important;grid-template-columns:1fr!important;grid-auto-rows:auto!important;gap:14px!important;margin-top:16px!important;height:auto!important;overflow:visible!important}
+.person{min-height:0!important;height:auto!important;grid-template-columns:1fr!important;grid-template-rows:220px auto!important;overflow:visible!important}
+.person-art{height:220px!important;min-height:220px!important;width:100%!important;overflow:hidden!important}
+.person-art img{width:100%!important;height:100%!important;object-fit:cover!important;object-position:center 20%!important}
+.person h3{font-size:1.38rem!important;line-height:1.1!important}
+.person p{font-size:.98rem!important;line-height:1.32!important}
+.role-tag{font-size:.78rem!important}
+.strategy{padding:20px 16px 32px!important;gap:16px!important}
 .manifesto{font-size:1.08rem!important;line-height:1.42!important}
-.interlude{padding:26px 18px!important;gap:18px!important}
+.interlude{padding:26px 18px 32px!important;gap:18px!important}
 .clock{font-size:4.4rem!important;text-align:left!important;margin-top:4px!important}
 .interlude blockquote{font-size:1.16rem!important}
 .reviewhead{display:block!important}
-.reviewgrid{grid-template-columns:1fr!important;grid-template-rows:auto!important;gap:8px!important;margin:16px 0!important}
-.reviewitem{min-height:82px!important;overflow:visible!important}
+.reviewgrid{grid-template-columns:1fr!important;grid-template-rows:auto!important;gap:8px!important;margin:16px 0!important;height:auto!important;overflow:visible!important}
+.reviewitem{min-height:82px!important;height:auto!important;overflow:visible!important}
 .reviewitem strong{font-size:1.12rem!important}.reviewitem small{font-size:.82rem!important}
-.score{padding:18px 14px 26px!important}
+.score{padding:18px 14px 32px!important}
 .scoretop{grid-template-columns:1fr!important;gap:10px!important}
 .totalscore{font-size:4.7rem!important}
 .scoregrid{grid-template-columns:1fr 1fr!important;gap:8px!important}
 .results{grid-template-columns:1fr!important;gap:8px!important}
-.panel{overflow:visible!important}.panel p{font-size:.96rem!important}
-.minirow,.team-feedback{grid-template-columns:1fr!important}
+.panel{height:auto!important;overflow:visible!important}.panel p{font-size:.96rem!important}
+.minirow,.team-feedback{grid-template-columns:1fr!important;height:auto!important;overflow:visible!important}
 .mini{font-size:.86rem!important}
-.debrief{padding:22px 16px 30px!important;gap:18px!important}
+.debrief{padding:22px 16px 32px!important;gap:18px!important}
 .qcard{font-size:1.08rem!important;line-height:1.38!important}
 .teacher-note{font-size:.94rem!important;line-height:1.4!important}
-.modal{align-items:end!important;padding:0!important}.modalbox{width:100%!important;max-width:none!important;max-height:82dvh!important;overflow:auto!important;border-radius:16px 16px 0 0!important;padding:18px 16px calc(18px + env(safe-area-inset-bottom))!important}.modalbody{font-size:1.04rem!important}.modalclose{min-height:48px!important;font-size:1rem!important}
+.modal{align-items:end!important;padding:0!important}.modalbox{width:100%!important;max-width:none!important;max-height:82dvh!important;overflow:auto!important;-webkit-overflow-scrolling:touch!important;border-radius:16px 16px 0 0!important;padding:18px 16px calc(18px + env(safe-area-inset-bottom))!important}.modalbody{font-size:1.04rem!important}.modalclose{min-height:48px!important;font-size:1rem!important}
 .night-toast{max-width:calc(100vw - 24px)!important;font-size:.94rem!important}
 @media (orientation:landscape) and (max-height:600px){
-  main{padding:5px!important}.topbar{min-height:38px!important}
-  .scene,.dialogue{grid-template-columns:40% 60%!important;align-items:stretch!important}
+  .topbar{min-height:38px!important}
+  main{padding:5px!important}
+  .scene,.dialogue{grid-template-columns:40% 60%!important;align-items:start!important}
   .scene .art,.dialogue .art{height:calc(100dvh - 44px)!important;min-height:0!important;position:sticky!important;top:38px!important;border-right:1px solid var(--line)!important;border-bottom:0!important}
-  .content,.voicepane{padding:12px 14px 20px!important}
+  .content,.voicepane{padding:12px 14px 24px!important}
   h2{font-size:1.85rem!important}.bodycopy{font-size:.98rem!important}.option{font-size:.96rem!important;min-height:48px!important;padding:9px!important}.subtitle{font-size:1.45rem!important}
-  .teamgrid{grid-template-columns:repeat(4,1fr)!important}.person{min-height:185px!important;grid-template-rows:105px auto!important}.person-art{height:105px!important}
+  .teamgrid{grid-template-columns:1fr 1fr!important;gap:10px!important}
+  .person{grid-template-rows:145px auto!important}.person-art{height:145px!important;min-height:145px!important}
   .scoregrid{grid-template-columns:repeat(4,1fr)!important}.results{grid-template-columns:1.12fr .88fr!important}
 }
 `;
@@ -133,8 +135,10 @@ frame.addEventListener('load',()=>{
     const stage=d.getElementById('stage');
     if(stage){
       const observer=new MutationObserver(()=>{
-        frame.contentWindow.scrollTo({top:0,left:0,behavior:'instant'});
-        const p=d.querySelector('.startprompt');if(p)p.textContent='ΠΑΤΗΣΕ «ΕΠΙΛΟΓΗ» ΓΙΑ ΕΝΑΡΞΗ';
+        d.body.scrollTop=0;
+        d.documentElement.scrollTop=0;
+        const p=d.querySelector('.startprompt');
+        if(p)p.textContent='ΠΑΤΗΣΕ «ΕΠΙΛΟΓΗ» ΓΙΑ ΕΝΑΡΞΗ';
       });
       observer.observe(stage,{childList:true});
     }
