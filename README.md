@@ -4,6 +4,13 @@
 
 The player takes the role of a junior curator preparing an exhibition around six real museum objects. During the day, they inspect evidence and make curatorial decisions. After the museum closes, the objects begin to speak back to those decisions.
 
+## Play online
+
+- **Desktop / laptop:** https://kkarpou.github.io/museum-after-hours/
+- **Mobile / touch:** https://kkarpou.github.io/museum-after-hours/mobile.html
+
+The desktop version is optimized for controller or keyboard use. The mobile version uses the same game content and assets, but adds touch controls and a phone-friendly responsive layout.
+
 ## What the game explores
 
 - evidence-based interpretation
@@ -26,7 +33,7 @@ The prototype includes six objects from the collection of The Metropolitan Museu
 
 ## Controls
 
-The game is designed for a controller but also supports keyboard input.
+### Desktop
 
 - **D-pad / Arrow keys** — navigate
 - **A / Enter** — select or continue
@@ -34,12 +41,23 @@ The game is designed for a controller but also supports keyboard input.
 - **X** — replay the current exhibit voice
 - **Y** — show a hint
 
+### Mobile
+
+The mobile interface provides on-screen buttons for:
+
+- Back
+- Previous / next choice
+- Select
+- Hint
+- Replay voice
+
 Subtitles remain visible during all voiced sequences.
 
 ## Project structure
 
 ```text
 index.html
+mobile.html
 assets/
   exhibits/
     hatshepsut.jpg
@@ -63,7 +81,7 @@ assets/
     wave_weak.mp3
 ```
 
-No build process or server-side code is required. Open `index.html` directly for local use, or publish the repository through GitHub Pages.
+No build process or server-side code is required. Open `index.html` directly for local desktop use, or publish the repository through GitHub Pages.
 
 ## GitHub Pages
 
